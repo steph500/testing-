@@ -1,0 +1,7 @@
+In Django, create a simple API endpoint at /api/greet/ that accepts a name query param and returns a JSON message like Hello, Alice
+
+. If no name is passed, return Hello, World
+
+. Then in React, build a small component with an input and a button that calls that endpoint and displays the message on the page.
+
+
