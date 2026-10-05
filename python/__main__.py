@@ -1,23 +1,29 @@
-"""Run with python -m ingest. All 100 documents commit together."""
+import sys
+from django.conf import settings
+from django.urls import path
+from django.http import JsonResponse
+from django.core.management import execute_from_command_line
 
-import json
-import logging
-import os
-from dataclasses import asdict
+# 1. Configure minimal Django settings
+if not settings.configured:
+    settings.configure(
+        DEBUG=True,
+        ROOT_URLCONF=__name__,
+        ALLOWED_HOSTS=['*'],
+    )
 
-import httpx
-import psycopg
-from dotenv import load_dotenv
+# 2. Define the view
+def greet(request):
+    name = request.GET.get('name', '').strip()
+    if name:
+        return JsonResponse({'message': f'Hello, {name}'})
+    return JsonResponse({'message': 'Hello, World'})
 
+# 3. Define URL routing
+urlpatterns = [
+    path('api/greet/', greet, name='greet'),
+]
 
-def main() -> None:
-    load_dotenv()
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
-
-    # api that accepts name and message and returns a response
-    api_url = os.environ.get("API_URL", "http://localhost:8000/messages")
-
-
-
-if __name__ == "__main__":
-    main()
+# 4. Execute the command line utility
+if __name__ == '__main__':
+    execute_from_command_line(sys.argv)
