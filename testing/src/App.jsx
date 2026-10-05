@@ -13,13 +13,14 @@ function Messages() {
   const handleSendMessage = (message) => {
     setMessages([...messages, message]);
     //call api to send message to backend
-    fetch('/api/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, message }),
-    })
+    // fetch('/api/messages', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({ name, message }),
+    // })
+    fetch(`/api/greet/?name=${encodeURIComponent(name)}`)
       .then((response) => response.json())
       .then((data) => {
         console.log('Success:', data);
