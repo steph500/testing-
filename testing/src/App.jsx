@@ -8,7 +8,7 @@ import './App.css'
 function Messages() {
 
   const [messages, setMessages] = useState([]);
-  const [name, setName] = useState('');
+  const [name, setName] = useState('Hello, world!');
 
   const handleSendMessage = (message) => {
     setMessages([...messages, message]);
